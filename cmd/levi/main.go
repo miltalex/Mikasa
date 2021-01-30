@@ -2,9 +2,6 @@
  *
  * Author: Miltiadis Alexis <alexmiltiadis@gmai.com>
  *
- *
- *
- *
  */
 
 package main
@@ -13,9 +10,13 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/bwmarrin/discordgo"
 	"github.com/caarlos0/env/v6"
+	"github.com/miltalex/Mikasa/levi/messages"
 )
 
 // Variables used for command line parameters
@@ -71,6 +72,14 @@ func main() {
 	if err != nil {
 		fmt.Println("Error opening Discord session: ", err)
 	}
+
+	messages.Init(dg)
+	// Wait here until CTRL-C or other term signal is received.
+	fmt.Println("Levi is now comming for you.  Press CTRL-C to exit.")
+	sc := make(chan os.Signal, 1)
+	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
+	<-sc
+
 	// Cleanly close down the Discord session.
 	dg.Close()
 

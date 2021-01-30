@@ -6,12 +6,19 @@
 
 package messages
 
-import "github.com/bwmarrin/discordgo"
+import (
+	"github.com/bwmarrin/discordgo"
+	"github.com/miltalex/Mikasa/common/logger"
+	"github.com/sirupsen/logrus"
+)
 
-// guildsCache is being used to keep a map of available guilds
-// providing O(1) lookup time.
+var log = logger.New(logrus.StandardLogger(), "messages")
+
+// guildsCache is being used to keep a map of
+// unavailable guilds providing O(1) lookup time.
 var guildsCache = make(map[string]bool)
 
 // Init register handlers for the bot
 func Init(s *discordgo.Session) {
+	s.AddHandler(ready)
 }
