@@ -15,12 +15,12 @@ import (
 func ready(s *discordgo.Session, r *discordgo.Ready) {
 	log.WithField("User", r.User.String()).Info("logged in.")
 	// Set the playing status.
-	s.UpdateGameStatus(0, fmt.Sprintf("t!help | %d Servers!", len(s.State.Guilds)))
+	s.UpdateGameStatus(0, fmt.Sprintf("!help | %d Servers!", len(s.State.Guilds)))
 
 	// Cache the unavailable guilds.
 	for _, guild := range r.Guilds {
 		if guild.Unavailable {
-			guildsCache[guild.ID] = true
+			unavailableGuilds[guild.ID] = true
 		}
 	}
 

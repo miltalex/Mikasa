@@ -14,8 +14,8 @@ import (
 
 var log = logger.New(logrus.StandardLogger(), "messages")
 
-// guildsCache is being used to keep a map of
-// unavailable guilds providing O(1) lookup time.
+// unavailableGuilds is cache which is being used to keep
+// a map of unavailable guilds providing O(1) lookup time.
 var unavailableGuilds = make(map[string]bool)
 
 // Init register handlers for the bot

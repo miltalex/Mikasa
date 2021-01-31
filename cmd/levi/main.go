@@ -30,7 +30,7 @@ var buffer = make([][]byte, 0)
 
 // Environment Variables
 type environmentVariables struct {
-	Token                string `env:BOT_TOKEN,envDefault:"MyToken"`
+	Token                string `env:"BOT_TOKEN",envDefault:"MyToken"`
 	DiscordrusWebHookURL string `env:"DISCORDRUS_WEBHOOK_URL"`
 	Port                 string `env:"PORT" envDefault:"8081"`
 	BotName              string `env:"BOT_NAME" envDefault:"armin"`
