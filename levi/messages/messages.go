@@ -16,9 +16,11 @@ var log = logger.New(logrus.StandardLogger(), "messages")
 
 // guildsCache is being used to keep a map of
 // unavailable guilds providing O(1) lookup time.
-var guildsCache = make(map[string]bool)
+var unavailableGuilds = make(map[string]bool)
 
 // Init register handlers for the bot
 func Init(s *discordgo.Session) {
 	s.AddHandler(ready)
+	s.AddHandler(guildCreate)
+	s.AddHandler(guildDelete)
 }
