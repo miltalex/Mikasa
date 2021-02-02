@@ -30,12 +30,11 @@ var buffer = make([][]byte, 0)
 
 // Environment Variables
 type environmentVariables struct {
-	Token                string `env:"BOT_TOKEN",envDefault:"MyToken"`
-	DiscordrusWebHookURL string `env:"DISCORDRUS_WEBHOOK_URL"`
-	Port                 string `env:"PORT" envDefault:"8081"`
-	BotName              string `env:"BOT_NAME" envDefault:"armin"`
-	BotKeyword           string `env:"BOT_KEYWORD" envDefault:"!ackerman"`
-	InstanceName         string `env:"INSTANCE_NAME" envDefault:"Mikasa-0"`
+	Token        string `env:"BOT_TOKEN",envDefault:"MyToken"`
+	Port         string `env:"PORT" envDefault:"8081"`
+	BotName      string `env:"BOT_NAME" envDefault:"armin"`
+	BotKeyword   string `env:"BOT_KEYWORD" envDefault:"!ackerman"`
+	InstanceName string `env:"INSTANCE_NAME" envDefault:"Mikasa-0"`
 }
 
 func init() {
@@ -66,6 +65,8 @@ func main() {
 		fmt.Println("Error creating Discord session: ", err)
 		return
 	}
+	dg.SyncEvents = false
+	messages.Init(dg)
 
 	// Open the websocket and begin listening.
 	err = dg.Open()
@@ -73,7 +74,6 @@ func main() {
 		fmt.Println("Error opening Discord session: ", err)
 	}
 
-	messages.Init(dg)
 	// Wait here until CTRL-C or other term signal is received.
 	fmt.Println("Levi is now comming for you.  Press CTRL-C to exit.")
 	sc := make(chan os.Signal, 1)
